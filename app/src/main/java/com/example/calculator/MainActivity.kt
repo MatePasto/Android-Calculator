@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                     tv_operator_display.text = btn.hint.toString()
                     btnInsert = ""
                 } else if (btn == ac_btn || tv_value1_display.text == "0") {
+                    tv_value2_display.text = "0"
                     btnPressed(btn.hint.toString())
                     tv_value1_display.text = btn.hint.toString()
                 } else {
