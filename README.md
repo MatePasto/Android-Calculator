@@ -1,5 +1,5 @@
 # Android-Calculator
-## Calculator made for android devices with Android Studio.
+### Calculator made for android devices with Android Studio.
 
 ---
 
@@ -7,9 +7,9 @@ This is my first app made with android studio. The idea with this was to test an
 
 ---
 
-## Version: Alpha 1.0.0
+### Version: Alpha 1.0.0
 
-## Changelog: 
+### Changelog: 
 
 - Created base frontend/backend structure and base math operators.
 - It only can do one operation per use (To Do: Reset() Function).
