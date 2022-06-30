@@ -11,10 +11,10 @@ class MainActivity : AppCompatActivity() {
     var value1: Int = 0
     var value2: Int = 0
     var resultValue: Float = 0F
-    val sumOperators: MathOperators = Sum()
-    val subtractOperators: MathOperators = Subtract()
-    val multiplyOperators: MathOperators = Multiply()
-    val divisionOperators: MathOperators = Division()
+    val sumOperator: MathOperators = Sum()
+    val subtractOperator: MathOperators = Subtract()
+    val multiplyOperator: MathOperators = Multiply()
+    val divisionOperator: MathOperators = Division()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         fun opertation(value1: Int, value2: Int): Int {
             if (operationToDo == "+")
-            { return sumOperators.doOperation(value1, value2)}
+            { return sumOperator.doOperation(value1, value2)}
             else if (operationToDo == "-")
-            { return subtractOperators.doOperation(value1, value2)}
+            { return subtractOperator.doOperation(value1, value2)}
             else if (operationToDo == "*")
-            { return multiplyOperators.doOperation(value1, value2)}
+            { return multiplyOperator.doOperation(value1, value2)}
             else if (operationToDo == "/")
-            { return divisionOperators.doOperation(value1, value2)}
+            { return divisionOperator.doOperation(value1, value2)}
             return 0
         }
 
@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
             tv_value1_display.text = "0"
             tv_operator_display.text = ""
         }
+
+// ------------------------------------------------------------------------------------------------
+// Main code execution
+// ------------------------------------------------------------------------------------------------
 
         fun pressinBtn(btn: Button) {
             if (value1 == 0) {
@@ -82,7 +86,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+// ------------------------------------------------------------------------------------------------
 // On Click Listener for each button
+// ------------------------------------------------------------------------------------------------
 
         btn_0.setOnClickListener { pressinBtn(btn_0) }
         btn_1.setOnClickListener { pressinBtn(btn_1) }
