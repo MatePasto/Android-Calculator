@@ -8,19 +8,64 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     var operationToDo: String = "0"
     var btnInsert: String = ""
-    var value1: Int = 0
-    var value2: Int = 0
-    var resultValue: Float = 0F
+    var value1: Double = 0.0
+    var value2: Double = 0.0
+    var valueOverrite: Int = 1
+    var resultValue: Double = 0.0
     val sumOperator: MathOperators = Sum()
     val subtractOperator: MathOperators = Subtract()
     val multiplyOperator: MathOperators = Multiply()
     val divisionOperator: MathOperators = Division()
 
+// ------------------------------------------------------------------------------------------------
+// Layout import
+// ------------------------------------------------------------------------------------------------
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fun opertation(value1: Int, value2: Int): Int {
+// ------------------------------------------------------------------------------------------------
+// Main execution code
+// ------------------------------------------------------------------------------------------------
+
+        fun btnPressed(value: String) { btnInsert += value }
+
+        fun cleanDisplay() {
+            tv_value_display.text = "0"
+            tv_operator_display.text = ""
+        }
+
+        fun reset() {
+            operationToDo = "0"
+            btnInsert = ""
+            value1 = 0.0
+            value2 = 0.0
+            valueOverrite = 1
+        }
+
+        fun numberBtn(btn: Button) {
+            if (tv_value_display.text == "0" || tv_value_display.text == resultValue.toString()) {
+                tv_value_display.text = "0"
+                resultValue = 0.0
+                btnPressed(btn.hint.toString())
+                tv_value_display.text = btn.hint.toString()
+            } else {
+                btnPressed(btn.hint.toString())
+                tv_value_display.text =
+                    tv_value_display.text.toString() + btn.hint.toString()
+            }
+        }
+
+        fun operatorBtn(btn: Button) {
+            cleanDisplay()
+            value1 = btnInsert.toDouble()
+            btnInsert = ""
+            tv_operator_display.text = btn.hint
+            operationToDo = btn.hint.toString()
+        }
+
+        fun opertation(value1: Double, value2: Double): Double {
             if (operationToDo == "+")
             { return sumOperator.doOperation(value1, value2)}
             else if (operationToDo == "-")
@@ -29,82 +74,38 @@ class MainActivity : AppCompatActivity() {
             { return multiplyOperator.doOperation(value1, value2)}
             else if (operationToDo == "/")
             { return divisionOperator.doOperation(value1, value2)}
-            return 0
+            return 0.0
         }
 
-        fun btnPressed(value: String) { btnInsert += value }
-
-        fun reset() {
-            operationToDo = "0"
+        fun equalBtnPressed(btn: Button) {
+            value2 = btnInsert.toDouble()
+            resultValue = opertation(value1, value2)
             btnInsert = ""
-            value1 = 0
-            value2 = 0
-            resultValue = 0F
-            tv_value1_display.text = "0"
+            btnPressed(btn.hint.toString())
             tv_operator_display.text = ""
+            tv_value_display.text = resultValue.toString()
+            reset()
         }
 
 // ------------------------------------------------------------------------------------------------
-// Main code execution
+// OnClickListener for each button
 // ------------------------------------------------------------------------------------------------
 
-        fun pressinBtn(btn: Button) {
-            if (value1 == 0) {
-                if (btn == sum_btn || btn == subtract_btn || btn == multiply_btn || btn == division_btn) {
-                    this.value1 = btnInsert.toInt()
-                    operationToDo = btn.hint.toString()
-                    btnPressed(btn.hint.toString())
-                    tv_operator_display.text = btn.hint.toString()
-                    btnInsert = ""
-                } else if (btn == ac_btn || tv_value1_display.text == "0") {
-                    tv_value2_display.text = "0"
-                    btnPressed(btn.hint.toString())
-                    tv_value1_display.text = btn.hint.toString()
-                } else {
-                    tv_value2_display.text = "0"
-                    btnPressed(btn.hint.toString())
-                    tv_value1_display.text =
-                        tv_value1_display.text.toString() + btn.hint.toString()
-                }
-            } else {
-                if (btn == ac_btn || tv_value2_display.text == "0") {
-                    btnPressed(btn.hint.toString())
-                    tv_value2_display.text = btn.hint.toString()
-                } else if (btn == equal_btn) {
-                    this.value2 = btnInsert.toInt()
-                    resultValue = opertation(value1, value2).toFloat()
-                    btnInsert = ""
-                    btnPressed(btn.hint.toString())
-                    tv_value2_display.text =btn.hint.toString()
-                    tv_value2_display.text = resultValue.toString()
-                    reset()
-                } else {
-                    btnPressed(btn.hint.toString())
-                    tv_value2_display.text =
-                        tv_value2_display.text.toString() + btn.hint.toString()
-                }
-            }
-        }
-
-// ------------------------------------------------------------------------------------------------
-// On Click Listener for each button
-// ------------------------------------------------------------------------------------------------
-
-        btn_0.setOnClickListener { pressinBtn(btn_0) }
-        btn_1.setOnClickListener { pressinBtn(btn_1) }
-        btn_2.setOnClickListener { pressinBtn(btn_2) }
-        btn_3.setOnClickListener { pressinBtn(btn_3) }
-        btn_4.setOnClickListener { pressinBtn(btn_4) }
-        btn_5.setOnClickListener { pressinBtn(btn_5) }
-        btn_6.setOnClickListener { pressinBtn(btn_6) }
-        btn_7.setOnClickListener { pressinBtn(btn_7) }
-        btn_8.setOnClickListener { pressinBtn(btn_8) }
-        btn_9.setOnClickListener { pressinBtn(btn_9) }
-        equal_btn.setOnClickListener { pressinBtn(equal_btn) }
-        sum_btn.setOnClickListener { pressinBtn(sum_btn) }
-        subtract_btn.setOnClickListener { pressinBtn(subtract_btn) }
-        multiply_btn.setOnClickListener { pressinBtn(multiply_btn) }
-        division_btn.setOnClickListener { pressinBtn(division_btn) }
-        ac_btn.setOnClickListener { pressinBtn(ac_btn) }
+        btn_0.setOnClickListener { numberBtn(btn_0) }
+        btn_1.setOnClickListener { numberBtn(btn_1) }
+        btn_2.setOnClickListener { numberBtn(btn_2) }
+        btn_3.setOnClickListener { numberBtn(btn_3) }
+        btn_4.setOnClickListener { numberBtn(btn_4) }
+        btn_5.setOnClickListener { numberBtn(btn_5) }
+        btn_6.setOnClickListener { numberBtn(btn_6) }
+        btn_7.setOnClickListener { numberBtn(btn_7) }
+        btn_8.setOnClickListener { numberBtn(btn_8) }
+        btn_9.setOnClickListener { numberBtn(btn_9) }
+        equal_btn.setOnClickListener { equalBtnPressed(equal_btn) }
+        sum_btn.setOnClickListener { operatorBtn(sum_btn) }
+        subtract_btn.setOnClickListener { operatorBtn(subtract_btn) }
+        multiply_btn.setOnClickListener { operatorBtn(multiply_btn) }
+        division_btn.setOnClickListener { operatorBtn(division_btn) }
+        ac_btn.setOnClickListener { cleanDisplay() }
     }
 }

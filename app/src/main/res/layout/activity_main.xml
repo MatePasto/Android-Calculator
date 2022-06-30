@@ -8,9 +8,9 @@
     android:background="@color/OldLace">
 
     <TextView
-        android:id="@+id/tv_value1_display"
+        android:id="@+id/tv_value_display"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="50dp"
         android:text="0"
         android:textAlignment="textEnd"
         android:textSize="35dp"
@@ -21,24 +21,13 @@
     <TextView
         android:id="@+id/tv_operator_display"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="50dp"
         android:text=""
         android:textAlignment="textEnd"
         android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_value1_display" />
-
-    <TextView
-        android:id="@+id/tv_value2_display"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:text="0"
-        android:textAlignment="textEnd"
-        android:textSize="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_operator_display" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_value_display" />
 
     <Button
         android:id="@+id/btn_2"
